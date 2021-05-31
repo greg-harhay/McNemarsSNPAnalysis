@@ -2,18 +2,13 @@
 function [McNemarsWithCoordinatesSNP] = ...
     run_Exact_McNemars_filtered_SNP(DiploT_sort, PlinkMap, McNemarsCSV)
 
-% Assume starting with unsorted diploT array, need to sort using metadata
-% in Paired_metadata_array
+% Assume starting with sorted diploT array
 
 % Whole Array Operations
 % First, read in paired_metadata array as Pairedmetadataarray
-
-% [DiploT_sort, Paired_metadata_sort] = SortDiploT(diploT_array,Pairedmetadataarray);
-
 % Command inside a loop to process every SNP in diplotype array of SNP
 
-
-% convert MAP file into table
+% convert PLINK MAP file into table
 
 PlinkMapTable = readtable(PlinkMap,"FileType","text", "Delimiter","\t","ReadVariableNames",false);
 
@@ -23,24 +18,10 @@ tic
 
 parfor i = 1:numsnp(2)
     
-%     filterbad = cell2table(tabulate(diploT_array(:,i))); % find no calls
-%     filterbad.Var1 = string(filterbad.Var1);
-%     nocallsIndex = find(filterbad.Var1 == "0");
-%     nobadcall = isempty(nocallsIndex); % no bad call means nobadcall = 1
-%     
-%     if nobadcall ~= 1     % look for no call in filter bad        
-%         nocallfreq = filterbad.Var3(nocallsIndex);      
-%         if nocallfreq > 10
-%             continue % skip this SNP in loop, go to next iteration
-%         end     
-%     end
-%       
+   
     
     [AlleleHighFreq(i),AlleleLowFreq(i)] = GetSNPAlleleFreqs(DiploT_sort,i);
-    
-    % [singleA_ChiSQR(i),singleA_ChiSQR_CC(i),singleA_p_Exact(i),singleA_a(i),singleA_b(i),...
-    %     singleA_c(i),singleA_d(i)] = McNemarsScoreSNPSingleA(AlleleHighFreq(i), DiploT_sort,i);
-    
+       
     [ExactOneHF_ChiSQR(i),ExactOneHF_ChiSQR_CC(i),ExactOneHF_p_Exact(i),ExactOneHF_a(i), ...
         ExactOneHF_b(i), ExactOneHF_c(i),ExactOneHF_d(i)] ...
         = McNemarsScoreExactIn(AlleleHighFreq(i),1, DiploT_sort,i);
@@ -64,10 +45,7 @@ parfor i = 1:numsnp(2)
     [ExactTwoLF_ChiSQR(i),ExactTwoLF_ChiSQR_CC(i),ExactTwoLF_p_Exact(i),ExactTwoLF_a(i),...
         ExactTwoLF_b(i),ExactTwoLF_c(i),ExactTwoLF_d(i)] ...
         = McNemarsScoreExactIn(AlleleLowFreq(i),2, DiploT_sort,i);
-    
-    %[doubleA_ChiSQR(i),doubleA_ChiSQR_CC(i),doubleA_p_Exact(i),doubleA_a(i),doubleA_b(i),...
-    %  doubleA_c(i),doubleA_d(i)] = McNemarsScoreSNPDoubleA(AlleleHighFreq(i), DiploT_sort,i);  
-    
+        
 end
 
 
