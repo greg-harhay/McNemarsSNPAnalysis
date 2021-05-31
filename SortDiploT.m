@@ -22,7 +22,7 @@ for i = 1:numel(pair_ids)
         m = pair_ids(i);
         k = k+1;
         new_idx = Pairedmetadataarray.Pairs == m & Pairedmetadataarray.Phenotype == j;       
-        l = int32(find(new_idx));   
+        l = int32(find(I ));   
         diploT_array_sort(k,:) = diploT_array(l,:);
         paired_metadata_sort(k,:) = Pairedmetadataarray(l,:);
     end
