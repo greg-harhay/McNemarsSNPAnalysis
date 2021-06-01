@@ -80,8 +80,8 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
     
     for i = 1:numel(control_no_effect)
         
-        control_test = ExactlyOneOrTwoAllelePresent(Allele,control_no_effect(i));
-        case_test = ExactlyOneOrTwoAllelePresent(Allele,case_affected(i));
+        control_test = ExactlyOneAllelePresent(Allele,control_no_effect(i));
+        case_test = ExactlyOneAllelePresent(Allele,case_affected(i));
         
         if (case_test == 100 || control_test == 100) % N or 0, no score for animal(s)
             continue  % don't score pair when there is no score for the alleles for one or both animals
@@ -101,12 +101,12 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
         
         % homozygotes matching allele
         
-        if Allele == control_no_effect(i,1) || Allele == case_affected(i,1)
+  %      if Allele == control_no_effect(i,1) && Allele == case_affected(i,1)
             
-            continue; % have two copies of allele in case or control or both
-            % throw out animal from scoring, jump to next animal
+   %         continue; % have two copies of allele in case and control or both
+            % throw out pair from scoring, jump to next pair
             % in for loop
-        end
+   %    end
         
         % need score Alleles with non-matching two copy diplotypes, and
         % now that diplotypes matching Allele have been thrown out above,
@@ -152,10 +152,7 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
 % look or single copy of allelle in single animal
    
         if ( control_test == 1 && case_test == 1)
-            % single allele in each animal, bust out and look and look at
-            % the next animal 
-            continue; 
-            % Qa = Qa +1;
+            Qa = Qa +1;
         elseif ( case_test == 1 && control_test == 0)
             Qb = Qb +1;
         elseif ( case_test == 0 && control_test == 1)
