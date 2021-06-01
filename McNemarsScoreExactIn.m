@@ -149,8 +149,8 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
 %             Qc = Qc +1;
 %         end   
 
-    % look or single copy of allelle in single animal
-    
+% look or single copy of allelle in single animal
+   
         if ( control_test == 1 && case_test == 1)
             % single allele in each animal, bust out and look and look at
             % the next animal 
