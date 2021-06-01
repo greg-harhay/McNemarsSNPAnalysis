@@ -28,6 +28,10 @@ idx = 1:2:diploT_size(1)-1;
 
 % Get diplotypes for each animal in pair
 
+% Diplotypes arrays
+%   control_no_effect
+%   case_affected
+
 for i = 1:numel(idx)
     j = idx(i);
     control_no_effect(i,1) = diploT_array_sort(j,SNP_Num);
@@ -70,7 +74,9 @@ end
 
 Qa = 0; Qb = 0; Qc=0; Qd = 0;
 
-if ExactIn == 1
+if ExactIn == 1  % case where a single animal in pair has a single allelle
+                 % and the other animal is homozygous for non matching
+                 % allele
     
     for i = 1:numel(control_no_effect)
         
@@ -91,7 +97,9 @@ if ExactIn == 1
         %  G diplotype to score in Qb or Qc. If two G diploypes, then score
         %  in Qd
         
-        % Compare genotype to diplotype below
+        % Compare genotype to diplotype below - 
+        
+        % homozygotes matching allele
         
         if Allele == control_no_effect(i,1) || Allele == case_affected(i,1)
             
@@ -105,34 +113,57 @@ if ExactIn == 1
         % all the rest of the two copy (homozygous) diplotypes must be
         % those NOT matching Allele -- check for homozygotes
         
-        if ismember(control_no_effect(i,1),['A','C','G','T']) && ...
-                ismember(case_affected(i,1),['A','C','G','T'])
-            Qd = Qd +1;
-        end
+        % Only dealing with hets below this line
         
+        % think immediately below does nothing, already checked for hets
+        % above
+        
+%         if ismember(control_no_effect(i,1),['A','C','G','T']) && ...
+%                 ismember(case_affected(i,1),['A','C','G','T'])
+%             Qd = Qd +1;
+%         end
+        
+        % The below is wrong
         % now score those diplotypes that are both hets (Qa) both animals
         % have exactly one copy
         
-        if ismember(control_no_effect(i,1),['R','Y','W','S','K','M']) && ...
-                ismember(case_affected(i,1),['R','Y','W','S','K','M'])
-            Qa = Qa +1;
-        end
-        
-        % now score those diplotypes with case has hets (Qa)
-        % and control has homo allele (not matching query Allele)
-        
-        if ismember(case_affected(i,1),['R','Y','W','S','K','M']) ...
-                && ismember(control_no_effect(i,1),['A','C','G','T'])
+       
+%         if ismember(control_no_effect(i,1),['R','Y','W','S','K','M']) && ...
+%                 ismember(case_affected(i,1),['R','Y','W','S','K','M'])
+%             Qa = Qa +1;
+%         end
+%         
+%         % now score those diplotypes with case has hets (Qa)
+%         % and control has homo allele (not matching query Allele)
+%         
+%         if ismember(case_affected(i,1),['R','Y','W','S','K','M']) ...
+%                 && ismember(control_no_effect(i,1),['A','C','G','T'])
+%             Qb = Qb +1;
+%         end
+%         
+%         % now score those diplotypes with control has hets (Qa)
+%         % and case has homo allele (not matching query Allele)
+%         
+%         if ismember(control_no_effect(i,1),['R','Y','W','S','K','M']) ...
+%                 && ismember(case_affected(i,1),['A','C','G','T'])
+%             Qc = Qc +1;
+%         end   
+
+    % look or single copy of allelle in single animal
+    
+        if ( control_test == 1 && case_test == 1)
+            % single allele in each animal, bust out and look and look at
+            % the next animal 
+            continue; 
+            % Qa = Qa +1;
+        elseif ( case_test == 1 && control_test == 0)
             Qb = Qb +1;
-        end
-        
-        % now score those diplotypes with control has hets (Qa)
-        % and case has homo allele (not matching query Allele)
-        
-        if ismember(control_no_effect(i,1),['R','Y','W','S','K','M']) ...
-                && ismember(case_affected(i,1),['A','C','G','T'])
+        elseif ( case_test == 0 && control_test == 1)
             Qc = Qc +1;
-        end      
+        elseif ( case_test == 0 && control_test == 0)
+            Qd = Qd +1;
+        end
+
     end
 end
 
