@@ -106,48 +106,7 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
             continue; % have two copies of allele in case or control or both
             % throw out animal from scoring, jump to next animal
             % in for loop
-        end
-        
-        % need score Alleles with non-matching two copy diplotypes, and
-        % now that diplotypes matching Allele have been thrown out above,
-        % all the rest of the two copy (homozygous) diplotypes must be
-        % those NOT matching Allele -- check for homozygotes
-        
-        % Only dealing with hets below this line
-        
-        % think immediately below does nothing, already checked for hets
-        % above
-        
-%         if ismember(control_no_effect(i,1),['A','C','G','T']) && ...
-%                 ismember(case_affected(i,1),['A','C','G','T'])
-%             Qd = Qd +1;
-%         end
-        
-        % The below is wrong
-        % now score those diplotypes that are both hets (Qa) both animals
-        % have exactly one copy
-        
-       
-%         if ismember(control_no_effect(i,1),['R','Y','W','S','K','M']) && ...
-%                 ismember(case_affected(i,1),['R','Y','W','S','K','M'])
-%             Qa = Qa +1;
-%         end
-%         
-%         % now score those diplotypes with case has hets (Qa)
-%         % and control has homo allele (not matching query Allele)
-%         
-%         if ismember(case_affected(i,1),['R','Y','W','S','K','M']) ...
-%                 && ismember(control_no_effect(i,1),['A','C','G','T'])
-%             Qb = Qb +1;
-%         end
-%         
-%         % now score those diplotypes with control has hets (Qa)
-%         % and case has homo allele (not matching query Allele)
-%         
-%         if ismember(control_no_effect(i,1),['R','Y','W','S','K','M']) ...
-%                 && ismember(case_affected(i,1),['A','C','G','T'])
-%             Qc = Qc +1;
-%         end   
+        end    
 
 % look or single copy of allelle in single animal
    
