@@ -89,7 +89,7 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
         
         % if looking for A genotype and get animal with homozygous
         % G, then the G is scored in Qb, Qc, or Qd. Figure out first if Allele has
-        % matching deplotype A genotype with matching A diplotype. Skip
+        % matching diplotype A genotype with matching A diplotype. Skip
         % past this animal as it has two copies.
         % It het diplotype with genotype A, need to figure out other 
         % diplotype to know where to score in. Two hets go in Qa. 
