@@ -1,4 +1,4 @@
-function [chi_sqr,chi_sqr_cc,p_exact,Qa,Qb,Qc,Qd] = ...
+function [chi_sqr,chi_sqr_cc,p_exact,p_mid,Qa,Qb,Qc,Qd] = ...
     McNemarsScoreExactIn(Allele,ExactIn,diploT_array_sort,SNP_Num)
 %% McNemarsScoreExactIn
 % Score McNemars for matched in three different cases. Where animals in
@@ -180,8 +180,10 @@ n = Qb + Qc;
 
 if Qc <= Qb
     p_exact = 2*binocdf(Qc,n,0.5);
+    p_mid = 2*binocdf(Qc,n,0.5) - binopdf(Qc,n,0.5);
 else
     p_exact = 2*binocdf(Qb,n,0.5);
+    p_mid = 2*binocdf(Qb,n,0.5) - binopdf(Qb,n,0.5);
 end
 
 end
