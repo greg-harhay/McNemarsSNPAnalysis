@@ -1,10 +1,8 @@
 function [chi_sqr,chi_sqr_cc,p_exact,Qa,Qb,Qc,Qd] = ...
     McNemarsScoreExactIn(Allele,ExactIn,diploT_array_sort,SNP_Num)
-%% UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+%% McNemarsScoreExactIn
 % Score McNemars for matched in three different cases. Where animals in
-% pairs have exactly one matching allele (hets)  or no matching alleles
-% (homozygotes of the non-mathching allele). This is the ExactlyOne case
+% pairs have exactly one matching allele (hets). This is the ExactlyOne case
 % has has ExactIn = 1. In the case where there can be one or two matching
 % allles in each animal, the case is ExactIn = 1.5. Where there must be two
 % matching alleles to the input Allele, ExactIn = 2 and is referered to
@@ -125,8 +123,6 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
 
     end
 end
-
-
 
 if ExactIn == 1.5
     for i = 1:numel(control_no_effect)
