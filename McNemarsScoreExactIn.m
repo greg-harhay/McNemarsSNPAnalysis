@@ -13,6 +13,7 @@ function [chi_sqr,chi_sqr_cc,p_exact,p_mid,Qa,Qb,Qc,Qd] = ...
 
 % get number of rows in diploT_array_sort
 
+
 diploT_size = size(diploT_array_sort);
 
 % case control iterator will incremnt by 2 each time as we are dealing with
@@ -53,12 +54,12 @@ end
 %
 %
 %
-% For ExactlyOneorTwo or Exactly Two alleles for each animal 
+% For ExactlyOneorTwo or Exactly Two alleles for each animal
 
 % Scoring scheme for exactly one allele (ExactlyOne) - ExactIn = 1
 %  is different as one has to keep track of diplotypes
 % not containing the query allele or haves homozygotes of non matching
-% allele in one or both animals. Discussed more carefully in 
+% allele in one or both animals. Discussed more carefully in
 % Next need to see  allele is present in each case
 % and control diplotype  -
 %   Qa if in both case and control, Qa counter increments by 1
@@ -72,14 +73,12 @@ end
 
 Qa = 0; Qb = 0; Qc=0; Qd = 0;
 
-if ExactIn == 1  % case where a single animal in pair has a single allelle
-                 % and the other animal is homozygous for non matching
-                 % allele
+if ExactIn == 1  % animals have single allele only
     
     for i = 1:numel(control_no_effect)
         
-        control_test = ExactlyOneOrTwoAllelePresent(Allele,control_no_effect(i));
-        case_test = ExactlyOneOrTwoAllelePresent(Allele,case_affected(i));
+        control_test = ExactlyOneAllelePresent(Allele,control_no_effect(i));
+        case_test =  ExactlyOneAllelePresent(Allele,case_affected(i));
         
         if (case_test == 100 || control_test == 100) % N or 0, no score for animal(s)
             continue  % don't score pair when there is no score for the alleles for one or both animals
@@ -89,30 +88,27 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
         % G, then the G is scored in Qb, Qc, or Qd. Figure out first if Allele has
         % matching diplotype A genotype with matching A diplotype. Skip
         % past this animal as it has two copies.
-        % It het diplotype with genotype A, need to figure out other 
-        % diplotype to know where to score in. Two hets go in Qa. 
-        % But if have A allele, and a het with A, then the other animal 
+        % It het diplotype with genotype A, need to figure out other
+        % diplotype to know where to score in. Two hets go in Qa.
+        % But if have A allele, and a het with A, then the other animal
         %  G diplotype to score in Qb or Qc. If two G diploypes, then score
         %  in Qd
         
-        % Compare genotype to diplotype below - 
+        % Compare genotype to diplotype below -
         
         % homozygotes matching allele
         
-        if Allele == control_no_effect(i,1) || Allele == case_affected(i,1)
-            
-            continue; % have two copies of allele in case or control or both
-            % throw out animal from scoring, jump to next animal
-            % in for loop
-        end    
-
-% look or single copy of allelle in single animal
-   
+        %         if Allele == control_no_effect(i,1) || Allele == case_affected(i,1)
+        %
+        %             continue; % have two copies of allele in case or control or both
+        %             % throw out animal from scoring, jump to next animal
+        %             % in for loop
+        %         end
+        
+        % look or single copy of allele in
+        
         if ( control_test == 1 && case_test == 1)
-            % single allele in each animal, bust out and look and look at
-            % the next animal 
-            continue; 
-            % Qa = Qa +1;
+            Qa = Qa +1;
         elseif ( case_test == 1 && control_test == 0)
             Qb = Qb +1;
         elseif ( case_test == 0 && control_test == 1)
@@ -120,7 +116,7 @@ if ExactIn == 1  % case where a single animal in pair has a single allelle
         elseif ( case_test == 0 && control_test == 0)
             Qd = Qd +1;
         end
-
+        
     end
 end
 
