@@ -1,6 +1,7 @@
+function [diploT_array] = call_diplotypes_WGS_for_mcnemars(PED)
 tic
 
-fid = fopen('WGS_BCHF_All204_ARS1.2_30chr_filtered.ped');
+fid = fopen(PED);
 line_ex = fgetl(fid);
 
 %col_elements = strsplit(line_ex);
