@@ -10,6 +10,7 @@ function [McNemarsWithCoordinatesSNP] = ...
 
 % convert PLINK MAP file into table
 
+
 PlinkMapTable = readtable(PlinkMap,"FileType","text", "Delimiter","\t","ReadVariableNames",false);
 
 numsnp = size(DiploT_sort);
@@ -17,8 +18,6 @@ numsnp = size(DiploT_sort);
 tic
 
 parfor i = 1:numsnp(2)
-    
-   
     
     [AlleleHighFreq(i),AlleleLowFreq(i)] = GetSNPAlleleFreqs(DiploT_sort,i);
        
