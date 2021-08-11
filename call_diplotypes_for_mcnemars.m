@@ -1,4 +1,4 @@
-function [diploT_array] = call_diplotypes_WGS_for_mcnemars(PED)
+function [diploT_array] = call_diplotypes_for_mcnemars(PED)
 tic
 
 fid = fopen(PED);
