@@ -11,7 +11,11 @@ function y = ExactlyTwoAllelePresent(allele,diplotype)
 %       G = G,G
 %       T = T,T
 
-if (allele == 'A' && diplotype == 'A' )  
+
+if (diplotype == 'N' || diplotype == '0')
+    y = 100; % look for 100 in calling function as signal to throw out pair
+    return
+elseif (allele == 'A' && diplotype == 'A' )  
     y = 1;
     return
 elseif (allele == 'C' && diplotype == 'C' )   
@@ -22,9 +26,6 @@ elseif (allele == 'G' && diplotype == 'G')
     return
 elseif (allele == 'T' && diplotype == 'T')
     y= 1;
-    return
-elseif (diplotype == 'N' || diplotype == '0')
-    y = 100; % look for 100 in calling function as signal to throw out pair
     return
 else
     y= 0;

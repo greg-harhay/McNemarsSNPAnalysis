@@ -72,14 +72,6 @@ end
 toc
 
 
-% function y = ndx(i)
-% y = int32((i+1)/2);
-% end
 
 %% Time to Compute
-% %illum_777K_mcnemars
-% Elapsed time is 23206.928616 seconds.
-% 23206/60 * 1/60
-% ans =
-%     6.4461 hours
 
