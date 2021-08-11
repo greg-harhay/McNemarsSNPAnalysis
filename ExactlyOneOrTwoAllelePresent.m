@@ -24,7 +24,7 @@ elseif allele == 'G' && ismember(diplotype, ['G','R','S','K'])
 elseif allele == 'T' && ismember(diplotype, ['T','Y','W','K'])
     y= 1;
     return 
-elseif (allele == 'N' || allele == '0')
+elseif (diplotype == 'N' || diplotype == '0')
     y = 100; % look for 100 in calling function as signal to throw out pair
     return
 else

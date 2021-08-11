@@ -23,7 +23,7 @@ elseif (allele == 'G' && diplotype == 'G')
 elseif (allele == 'T' && diplotype == 'T')
     y= 1;
     return
-elseif (allele == 'N' || allele == '0')
+elseif (diplotype == 'N' || diplotype == '0')
     y = 100; % look for 100 in calling function as signal to throw out pair
     return
 else
