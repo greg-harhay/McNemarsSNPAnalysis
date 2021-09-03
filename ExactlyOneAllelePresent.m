@@ -12,7 +12,10 @@ function y = ExactlyOneAllelePresent(allele,diplotype)
 %       K = G,T or T,G
 %       M = A,C or C,A
 
-if (allele =='A' && ismember(diplotype, ['R','W','M']))
+if (diplotype == 'N' || diplotype == '0')
+    y = 100; % look for 100 in calling function as signal to throw out pair
+    return
+elseif (allele =='A' && ismember(diplotype, ['R','W','M']))
     y= 1;
     return
 elseif (allele == 'C' && ismember(diplotype, ['Y','S','M']))
@@ -23,9 +26,6 @@ elseif (allele == 'G' && ismember(diplotype, ['R','S','K']))
     return
 elseif (allele == 'T' && ismember(diplotype, ['Y','W','K']))
     y= 1;
-    return
-elseif (allele == 'N' || allele == '0')
-    y = 100; % look for 100 in calling function as signal to throw out pair
     return
 else
     y= 0;

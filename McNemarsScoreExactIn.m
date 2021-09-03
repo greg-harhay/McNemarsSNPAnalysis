@@ -84,27 +84,6 @@ if ExactIn == 1  % animals have single allele only
             continue  % don't score pair when there is no score for the alleles for one or both animals
         end
         
-        % if looking for A genotype and get animal with homozygous
-        % G, then the G is scored in Qb, Qc, or Qd. Figure out first if Allele has
-        % matching diplotype A genotype with matching A diplotype. Skip
-        % past this animal as it has two copies.
-        % It het diplotype with genotype A, need to figure out other
-        % diplotype to know where to score in. Two hets go in Qa.
-        % But if have A allele, and a het with A, then the other animal
-        %  G diplotype to score in Qb or Qc. If two G diploypes, then score
-        %  in Qd
-        
-        % Compare genotype to diplotype below -
-        
-        % homozygotes matching allele
-        
-        %         if Allele == control_no_effect(i,1) || Allele == case_affected(i,1)
-        %
-        %             continue; % have two copies of allele in case or control or both
-        %             % throw out animal from scoring, jump to next animal
-        %             % in for loop
-        %         end
-        
         % look or single copy of allele in
         
         if ( control_test == 1 && case_test == 1)
@@ -126,7 +105,8 @@ if ExactIn == 1.5
         case_test = ExactlyOneOrTwoAllelePresent(Allele,case_affected(i));
         if (case_test == 100 || control_test == 100) % N or 0, no score for animal(s)
             continue  % don't score pair when there is no score for the alleles for one or both animals
-        elseif ( control_test == 1 && case_test == 1)
+        end
+        if ( control_test == 1 && case_test == 1)
             Qa = Qa +1;
         elseif ( case_test == 1 && control_test == 0)
             Qb = Qb +1;
@@ -144,7 +124,8 @@ if ExactIn == 2
         case_test = ExactlyTwoAllelePresent(Allele,case_affected(i));
         if (case_test == 100 || control_test == 100) % N or 0, no score for animal(s)
             continue  % don't score pair when there is no score for the alleles for one or both animals
-        elseif ( control_test == 1 && case_test == 1)
+        end
+        if ( control_test == 1 && case_test == 1)
             Qa = Qa +1;
         elseif ( case_test == 1 && control_test == 0)
             Qb = Qb +1;

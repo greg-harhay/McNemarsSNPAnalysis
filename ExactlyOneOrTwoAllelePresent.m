@@ -12,7 +12,11 @@ function y = ExactlyOneOrTwoAllelePresent(allele,diplotype)
 %       K = G,T or T,G
 %       M = A,C or C,A
 
-if allele =='A' && ismember(diplotype, ['A','R','W','M'])
+
+if (diplotype == 'N' || diplotype == '0')
+    y = 100; % look for 100 in calling function as signal to throw out pair
+    return
+elseif allele =='A' && ismember(diplotype, ['A','R','W','M'])
     y= 1;
     return
 elseif allele == 'C' && ismember(diplotype, ['C','Y','S','M'])   
@@ -24,9 +28,6 @@ elseif allele == 'G' && ismember(diplotype, ['G','R','S','K'])
 elseif allele == 'T' && ismember(diplotype, ['T','Y','W','K'])
     y= 1;
     return 
-elseif (allele == 'N' || allele == '0')
-    y = 100; % look for 100 in calling function as signal to throw out pair
-    return
 else
     y= 0;
     return
