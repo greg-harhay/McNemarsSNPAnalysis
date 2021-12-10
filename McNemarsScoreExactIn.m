@@ -74,18 +74,18 @@ end
 Qa = 0; Qb = 0; Qc=0; Qd = 0;
 
 if ExactIn == 1  % animals have single allele only
-    
+
     for i = 1:numel(control_no_effect)
-        
+
         control_test = ExactlyOneAllelePresent(Allele,control_no_effect(i));
         case_test =  ExactlyOneAllelePresent(Allele,case_affected(i));
-        
+
         if (case_test == 100 || control_test == 100) % N or 0, no score for animal(s)
             continue  % don't score pair when there is no score for the alleles for one or both animals
         end
-        
+
         % look or single copy of allele in
-        
+
         if ( control_test == 1 && case_test == 1)
             Qa = Qa +1;
         elseif ( case_test == 1 && control_test == 0)
@@ -95,7 +95,7 @@ if ExactIn == 1  % animals have single allele only
         elseif ( case_test == 0 && control_test == 0)
             Qd = Qd +1;
         end
-        
+
     end
 end
 
