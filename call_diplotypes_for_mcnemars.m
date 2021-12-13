@@ -4,16 +4,11 @@ tic
 fid = fopen(PED);
 line_ex = fgetl(fid);
 
-%col_elements = strsplit(line_ex);
-%metadata(1,:) =  col_elements(1,1:6);
-
-
- 
 % There  are 6 columns with metadata at the begining
 % Some number, animal id, ,some number ,some number, sex, and pair id?
 % diplotype pairs start at column 7
 
-% convert diplotypes to singe charachter representation 
+% convert diplotypes to single character representation 
 %
 % rules:
 %       A = A,A
@@ -55,10 +50,7 @@ while ischar (line_ex)
     metadata(1,:) =  col_elements(1,1:6);
     metadata_array = cat(1,  metadata_array,  metadata);
     genotype_cols(1,:) = col_elements(1,7:total_num_cols);
-    
-    
-    %for i = 1:2:total_num_geno-1
-    
+       
     parfor i = 1:numel(col_idx)
         j = col_idx(i);
         pair = strcat(genotype_cols(j),genotype_cols(j+1));
