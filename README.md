@@ -21,7 +21,7 @@ The FAM file is included in this repository.
 * MAP file of genome coordinates for each SNP in PED
 
 ## Running McNemar's Analysis: test on SNP from chromosome 28
-McNemars_Chip_Analysis.mlx - Matlab Live Script - currently configured to run SNP resident on chr 28 only to demonstrate running the script and output. Can easily change analysis input files within McNemars_Chip_Analysis.mlx by providing file name for the PED, MAP and basename for the  plinkPED, plinkMAP, and basename variables within the script.
+McNemars_Chip_Analysis.mlx - Matlab Live Script - currently configured to run SNP resident only on chr 28 to demonstrate running the script and output. Can easily change analysis input files within McNemars_Chip_Analysis.mlx by providing file names for the PED, MAP and basename for the  plinkPED, plinkMAP, and basename variables within the script.
 
 ## Outputs
 * CSV file of McNemar's test scores, occupancy of McNeamar's contingency table quandrants,  chi-square, chi-square continuity correction , exact p-values, & mid p-values
