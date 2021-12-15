@@ -1,7 +1,11 @@
-% membership for single allele diplotype - returns 1 if single allele
-% present in diplotype
-
 function y = ExactlyOneOrTwoAllelePresent(allele,diplotype)
+% ExactlyOneOrTwoAllelePresent(allele,diplotype)
+% Takes as input an allele (A,C,G, or T) and an animal diplotype at a 
+% given SNP position and returns 1 if the input diplotype has one or 
+% two copies of the input allele, 0 if diplotype doesn't have the 
+% allele present, or 100 if there is no diplotype call for the animal 
+% at the given SNP position
+
 
 % allele either A, C, G, or T
 % diplotype is

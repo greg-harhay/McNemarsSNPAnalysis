@@ -1,45 +1,37 @@
 function [chi_sqr,chi_sqr_cc,p_exact,p_mid,Qa,Qb,Qc,Qd] = ...
     McNemarsScoreExactIn(Allele,ExactIn,diploT_array_sort,SNP_Num)
-%% McNemarsScoreExactIn
-% Score McNemars for matched in three different cases. Where animals in
-% pairs have exactly one matching allele (hets). This is the ExactlyOne case
-% has has ExactIn = 1. In the case where there can be one or two matching
-% allles in each animal, the case is ExactIn = 1.5. Where there must be two
-% matching alleles to the input Allele, ExactIn = 2 and is referered to
-% ExactlyTwo.
-
-% need input diplotype array pre-sorted by pair number (first) and
-% controls in row i, cases in i+1
-
-% get number of rows in diploT_array_sort
-
-
-diploT_size = size(diploT_array_sort);
-
-% case control iterator will incremnt by 2 each time as we are dealing with
-% 2 rows for each pair value
-
-% diploT_size(1) gives total number of rows.
-
-idx = 1:2:diploT_size(1)-1;
-
-% gives idx = 1,3,5,7 ....
-
-% Get diplotypes for each animal in pair
-
-% Diplotypes arrays
-%   control_no_effect
-%   case_affected
-
-for i = 1:numel(idx)
-    j = idx(i);
-    control_no_effect(i,1) = diploT_array_sort(j,SNP_Num);
-    case_affected(i,1) = diploT_array_sort(j+1,SNP_Num);
-end
-
-%%%% McNemars scheme for evaluation for ExactOneOrTwo and ExactTwo
-% if case has allele, and control doesn't, pair score in Qb
-
+%
+% [chi_sqr,chi_sqr_cc,p_exact,p_mid,Qa,Qb,Qc,Qd] =  ...
+% McNemarsScoreExactIn(Allele,ExactIn,diploT_array_sort,SNP_Num)
+%
+% Inputs are allele (A,C,G, or T), ExactIn (a flag = 1, 1.5, for 2) 
+% for the three different cases considered, diployT_array_sort is an array 
+% of sorted diplotypes where the animals have been presorted by animal pair
+% first, then case-control with control (phenotype = 1) animal always 
+% preceeding the case (phenotype = 2) having been provided in the input  
+% PED, and finally SNP_Num, the SNP number from PED. The outputs are 
+% statistics associated with the contingencey table chi-square, chi-square 
+% with continuity correction, p_exact (exact p value, from binomial 
+% distro), p_mid (mid p value from binomial distro) and
+% occupancy of the four coordinates Qa,Qb,Qc,Qd of the contingency table 
+%
+% Score McNemars Test for three different cases. 
+%
+% ExactlyOneAllelePresent: ExactIn = 1 
+% Where an animal in the pair has exactly one matching allele (hets) in
+% its diplotype.
+%
+% ExactlyOneorTwoAllelePresent: ExactIn = 1.5 
+% Where an animal in the pair has one or two matching alleles in 
+% its diplotype. 
+%
+% ExactlyTwoAllelePresent: ExactIn = 2  
+% Where an animal in the pair has exactly two matching alleles (homos) in
+% its diplotype.
+%
+% McNemars scheme for evaluation contingency table evaluation
+%
+%
 %                                      Control
 %                             +           |         -
 %                     +                   |
@@ -54,20 +46,41 @@ end
 %
 %
 %
-% For ExactlyOneorTwo or Exactly Two alleles for each animal
-
-% Scoring scheme for exactly one allele (ExactlyOne) - ExactIn = 1
-%  is different as one has to keep track of diplotypes
-% not containing the query allele or haves homozygotes of non matching
-% allele in one or both animals. Discussed more carefully in
-% Next need to see  allele is present in each case
-% and control diplotype  -
-%   Qa if in both case and control, Qa counter increments by 1
+%   Qa if allele in both case and control, Qa counter increments by 1
 %   Qb if case has allele, and not control then Qb counter increments by 1
 %   Qc if case does not have allele, but control does, then Qc counter increments by 1
-%   Qd if neither control or case have high frequency allele, then Qd
-%      increments by 1
+%   Qd if neither control or case have allele, then Qd increments by 1
 %
+
+
+% get number of rows in diploT_array_sort
+
+diploT_size = size(diploT_array_sort);
+
+% Need input diplotype array pre-sorted by pair number (first) and controls in 
+% row i, cases in i+1.
+% Case control iterator will increment by 2 each time as we are dealing with
+% 2 rows for each pair value
+
+% diploT_size(1) gives total number of rows.
+
+idx = 1:2:diploT_size(1)-1;
+
+% gives idx = 1,3,5,7 ....
+
+% Get diplotypes for each animal in pair
+
+% Diplotypes arrays
+% Control preceeds Case in sorted diplotype array, the array
+% was sorted as a consequence of being derived from a sorted PED file
+% provide by the user.
+
+for i = 1:numel(idx)
+    j = idx(i);
+    control_no_effect(i,1) = diploT_array_sort(j,SNP_Num);
+    case_affected(i,1) = diploT_array_sort(j+1,SNP_Num);
+end
+
 
 %test = cat(2,control_no_effect,case_affected);
 

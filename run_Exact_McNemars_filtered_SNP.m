@@ -1,15 +1,27 @@
-
 function [McNemarsWithCoordinatesSNP] = ...
     run_Exact_McNemars_filtered_SNP(DiploT_sort, PlinkMap, McNemarsCSV)
+% 
+% McNemarsWithCoordinatesSNP] =  ... 
+% run_Exact_McNemars_filtered_SNP(DiploT_sort, PlinkMap, McNemarsCSV)
+% 
+% This script's inputs are a diplotype array, PlinkMap (mapping of SNP 
+% to genome coordinates, and McNemarsCSV (the CSV file name) into which to 
+% write the McNemars statistics at each SNP. Each SNP is represented by a 
+% row in the CSV. Please note that orientation of the SNP in the output CSV 
+% file is transposed from the diplotype array. The first few columns of the 
+% CSV are occupied byt SNP ID, genome location, and other SNP metadata
+% with the rest of the columns occupied by McNemars statistics and
+% occupancy of the contingency table quadrants for the three cases
+% considered, where for the allele in question (A,C,G, or T) there was 
+% ExactlyOneAllelePresent, ExactlyOneorTwoAllelePresent, or 
+% ExactlyTwoAllelePresent in Qb or Qc ... by definition, the allele is 
+% present in the case but not control, and vice versa. 
+% Perform analysis for both the high frequency and low frequency alleles 
+% (these SNP are biallelic) at each SNP for a total of 2 x 3 = 6 
+% different McNeamers tests at every SNP.
 
-% Assume starting with sorted diploT array
-
-% Whole Array Operations
-% First, read in paired_metadata array as Pairedmetadataarray
-% Command inside a loop to process every SNP in diplotype array of SNP
 
 % convert PLINK MAP file into table
-
 
 PlinkMapTable = readtable(PlinkMap,"FileType","text", "Delimiter","\t","ReadVariableNames",false);
 
@@ -17,8 +29,11 @@ numsnp = size(DiploT_sort);
 
 tic
 
+
 parfor i = 1:numsnp(2)
     
+    % Determine high and low frequency alleles
+
     [AlleleHighFreq(i),AlleleLowFreq(i)] = GetSNPAlleleFreqs(DiploT_sort,i);
     
     [ExactOneHF_ChiSQR(i),ExactOneHF_ChiSQR_CC(i),ExactOneHF_p_Exact(i), ...

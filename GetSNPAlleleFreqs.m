@@ -1,10 +1,12 @@
 function [AlleleHighFreq,AlleleLowFreq] = GetSNPAlleleFreqs(diploT_array_sort,SNP_Num)
-%UNTITLED2 SNP_Num is the column number of diploT_array_sort
-%   Detailed explanation goes here
-% for each snp figure our which alleles are present and hets, figure our
-% dominant allelele and put that at the top of the 2 x 2 contingency table
-% each SNP diplotype in own column, need to figure out all allleles and
-% most and least frequent ones
+% 
+% [AlleleHighFreq,AlleleLowFreq] =  ... 
+% GetSNPAlleleFreqs(diploT_array_sort,SNP_Num)
+% 
+% The inputs are a diploT_array_sort (sorted diplotype array) and SNP_Num
+% (the SNP number or column number from diplotype array). The outputs are
+% the AlleleHighFreq (the high frequency allele) and  AlleleLowFreq (low
+% frequency allele) at each SNP.
 
 % Define Homozygous allele for diplotype
 
@@ -13,10 +15,6 @@ HomoAllele = char( 'A','C','G','T');
 diploFreqs = tabulate(diploT_array_sort(:,SNP_Num)); % used MATLAB baked in function for reporting
 
 diploFreqsSort = sortrows(diploFreqs,3,'descend');
-
-% may need to include the  statement below if there are 'N' no call genotypes
-% if  char(diploFreqsSortTable.diploFreqsSort1) == 'N'
-
 
 % domininant allele will be closer to the top of this list, if not the top
 % and therefor will have the lowest position number
@@ -53,7 +51,7 @@ if num_homo == 1
     else  % homo_allele_rel_pos must be = 2
         het_diplo_pos = 1 ;
     end
-    
+
     if AlleleHighFreq == 'A'
         if char(table2cell(diploFreqsSortTable(het_diplo_pos,1))) == 'R'
             AlleleLowFreq = 'G';
@@ -63,18 +61,18 @@ if num_homo == 1
             AlleleLowFreq = 'C';
         end
     end
-    
+
     if AlleleHighFreq == 'C'
-        
+
         if char(table2cell(diploFreqsSortTable(het_diplo_pos,1))) == 'Y'
             AlleleLowFreq = 'T';
         elseif char(table2cell(diploFreqsSortTable(het_diplo_pos,1))) == 'S'
             AlleleLowFreq = 'G';
         elseif char(table2cell(diploFreqsSortTable(het_diplo_pos,1))) == 'M'
             AlleleLowFreq = 'A';
-        end      
+        end
     end
-    
+
     if AlleleHighFreq == 'G'
         if char(table2cell(diploFreqsSortTable(het_diplo_pos,1))) ==  'R'
             AlleleLowFreq = 'A';
@@ -84,7 +82,7 @@ if num_homo == 1
             AlleleLowFreq = 'T';
         end
     end
-    
+
     if AlleleHighFreq == 'T'
         if char(table2cell(diploFreqsSortTable(het_diplo_pos,1))) ==  'Y'
             AlleleLowFreq = 'C';
@@ -94,13 +92,9 @@ if num_homo == 1
             AlleleLowFreq = 'G';
         end
     end
- 
-    % else num_homo > 1, just look the lower frequency homozygous allele
-    
+
 elseif ( char(diploFreqsSortTable.diploFreqsSort1(max(homo_allele_rel_pos))) == 'A' || 'C' ||'G'||'T')
     AlleleLowFreq = char(diploFreqsSortTable.diploFreqsSort1(max(homo_allele_rel_pos)));
-    % else % could be an N or 0 at the bottom of the list, the lowest frequency occurance
-    %     AlleleLowFreq = char(diploFreqsSortTable.alleleFreqsSort1(max(homo_allele_rel_pos)-1));
 end
 
 
