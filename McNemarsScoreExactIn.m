@@ -29,7 +29,7 @@ function [chi_sqr,chi_sqr_cc,p_exact,p_mid,Qa,Qb,Qc,Qd] = ...
 % Where an animal in the pair has exactly two matching alleles (homos) in
 % its diplotype.
 %
-% McNemars scheme for evaluation contingency table evaluation
+% Evaluation of McNemar's contingency table 
 %
 %
 %                                      Control
@@ -47,9 +47,9 @@ function [chi_sqr,chi_sqr_cc,p_exact,p_mid,Qa,Qb,Qc,Qd] = ...
 %
 %
 %   Qa if allele in both case and control, Qa counter increments by 1
-%   Qb if case has allele, and not control then Qb counter increments by 1
-%   Qc if case does not have allele, but control does, then Qc counter increments by 1
-%   Qd if neither control or case have allele, then Qd increments by 1
+%   Qb if case has allele, but not control, Qb counter increments by 1
+%   Qc if case does not have allele, but control does, Qc counter increments by 1
+%   Qd if neither control or case have allele, Qd increments by 1
 %
 
 
