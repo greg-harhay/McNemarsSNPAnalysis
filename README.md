@@ -1,7 +1,7 @@
 # McNemars SNP Analysis
 Matlab scripts for performing McNemars Test on SNPs of the Illumina Bovine HD770 Chip. A summary of the McNemar's test can be found [here](https://en.wikipedia.org/wiki/McNemar%27s_test).  These scripts, written in 100% MatLab, are the computational engine that generated the results presented in the publication titled "Association of ARRDC3 and NFIA variants with bovine congestive heart failure in feedlot cattle" with link HERE
  
-##  PLINK File Grooming
+##  PLINK PED File Grooming
 Each row represents a single animal's genotype in the PLINK file. The PLINK file must consist of genotypes from matched pairs of animals, with a single case animal matched with a single control animal and designated as a matched pair with a pair identifier.  The PED file must have the pair identifier, a number, in first column. The case and control phenotype (PHENO) are coded in column 6, with the  control coded with 1 (PHENO = 1) and the case with a 2 (PHENO = 2). For each match pair, the control animal shall precede the case animal, top to bottom, in the PED file.    
 
 Use UNIX/Linux **sort** to unscramble PED. The command below takes an unsorted PED of matched case and control animals and sorts first by number in column 1 (pair identifier) and the by column 6 (control ID preceding the case ID)
@@ -50,7 +50,7 @@ The FAM file is included in this repository.
 **Only Qb and Qc are informative for risk or protection**
 
 
-### CSV output file: Explaination of column header abbreviations
+### CSV output file: Explanation of column header abbreviations
 
 HiFreqAllele = high frequency allele
 
