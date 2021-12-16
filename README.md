@@ -1,4 +1,4 @@
-# McNemars SNP Analysis
+# McNemar's SNP Analysis
 Matlab scripts for performing McNemars Test on SNPs of the Illumina Bovine HD770 Chip. A summary of the McNemar's test can be found [here](https://en.wikipedia.org/wiki/McNemar%27s_test).  These scripts, written in 100% MatLab, are the computational engine that generated the results presented in the publication titled "Association of ARRDC3 and NFIA variants with bovine congestive heart failure in feedlot cattle" with link HERE
  
 ##  PLINK PED File Grooming
@@ -20,14 +20,9 @@ The FAM file is included in this repository.
 * PED file groomed as described above
 * MAP file of genome coordinates for each SNP in PED
 
-## Running McNemar's Analysis: test on SNP from chromosome 28
-McNemars_Chip_Analysis.mlx - Matlab Live Script - currently configured to run SNP resident only on chr 28 to demonstrate running the script and output. Can easily change analysis input files within McNemars_Chip_Analysis.mlx by providing file names for the PED, MAP and basename for the  plinkPED, plinkMAP, and basename variables within the script.
-
-## Outputs
-* CSV file of McNemar's test scores, occupancy of McNeamar's contingency table quandrants,  chi-square, chi-square continuity correction , exact p-values, & mid p-values
-* pdf representation of MatLab Livescript (.mlx.pdf) 
-
-###  Evaluation McNemar's contingency table
+## Running McNemar's Analysis: Chromosome 28 example
+McNemars\_Chip\_Analysis.mlx - Matlab Live Script - currently configured to run SNP resident only on chr 28 to demonstrate running the script and output. Can easily change analysis input files within McNemars\_Chip\_Analysis.mlx by providing file names for the PED, MAP and basename for the  plinkPED, plinkMAP, and basename variables within this script.
+###  Evaluating McNemar's contingency table
 
 
                                       Control
@@ -52,6 +47,11 @@ McNemars_Chip_Analysis.mlx - Matlab Live Script - currently configured to run SN
 **Only Qb and Qc are informative for risk or protection**
 
 
+## Outputs
+* CSV file of McNemar's test scores, occupancy of McNeamar's contingency table quandrants,  chi-square, chi-square continuity correction , exact p-values, & mid p-values
+* pdf representation of MatLab Livescript (.mlx.pdf) 
+
+
 ### CSV output file: Explanation of column header abbreviations
 
 HiFreqAllele = high frequency allele
@@ -67,16 +67,16 @@ For ExactlyOneAllele case with high frequency allele
 * ExactOneHF_ bPC_ D_ aPbPcPd = (Qa + Qc) / (Qa + Qb + Qc + Qd)
 * ExactOneHF_bDc = Qb / Qc
 * ExactOneHF_ChiSquared = ((Qb - Qc)^2)/(Qb + Qc)
-* ExactOneHF_ ChiSquared_CC =  (abs(Qb-Qc)-1)^2/(Qb + Qc)
-* ExactOneHF _ p _exact =  exact p-value
-* neg_ log10_ ExactOneHF_ p_ exact =  -log10(exact p-value)
-* ExactOneHF_ p_ mid = mid p-value
-* neg_ log10_ ExactOneHF_ p_ mid =  -log10(mid p-value)
+* ExactOneHF\_ChiSquared_CC =  (abs(Qb-Qc)-1)^2/(Qb + Qc)
+* ExactOneHF\_ p\_exact =  exact p-value
+* neg\_log10\_ExactOneHF\_p_exact =  -log10(exact p-value)
+* ExactOneHF\_p\_mid = mid p-value
+* neg\_log10\_ExactOneHF\_p\_mid =  -log10(mid p-value)
 
 The abbreviations schema is the same for the ExactlyOneOrTwoAllele (hets or homozygotes) and ExactlyTwoAllele (homozygotes) cases using both the high and low frequency alleles.
 
 
-## License
+##  ![](https://unlicense.org/pd-icon.png) License
 This code is released into the public domain under the [UnLicence](https://unlicense.org) 
 
 	This is free and unencumbered software released into the public domain.
