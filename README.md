@@ -1,10 +1,16 @@
-# McNemar's SNP Analysis
-Matlab scripts for performing McNemars Test on SNPs of the Illumina Bovine HD770 Chip. A summary of the McNemar's test can be found [here](https://en.wikipedia.org/wiki/McNemar%27s_test).  These scripts, written in 100% MatLab, are the computational engine that generated the results presented in the publication titled "Association of ARRDC3 and NFIA variants with bovine congestive heart failure in feedlot cattle" with link HERE
- 
-##  PLINK PED File Grooming
-Each row represents a single animal's genotype in the PLINK PED file. The PED file must consist of genotypes from matched pairs of animals, with a single case animal matched with a single control animal and designated as a matched pair with a pair identifier.  The PED file must have the pair identifier, a number, in first column. The case and control phenotype (PHENO) are coded in column 6, with the  control coded with 1 (PHENO = 1) and the case with a 2 (PHENO = 2). For each match pair, the control animal shall precede the case animal, top to bottom, in the PED file.    
+# McNemar's SNP Analysis 
+Matlab scripts for performing McNemars Test on SNPs of the Illumina Bovine HD770 Chip. A summary of the McNemar's test can be found [here](https://en.wikipedia.org/wiki/McNemar%27s_test).  These scripts, written in 100% MatLab, are the computational engine that generated the results presented in the publication titled "Association of *ARRDC3* and *NFIA* variants with bovine congestive heart failure in feedlot cattle" with link HERE
+## Code, Data, Results 
+Your capsule starts with the folders `/code`, `/data`, and `/results`. See our help article on [Paths](https://help.codeocean.com/getting-started/uploading-code-and-data/paths) for more information.
 
-Use UNIX/Linux **sort** to unscramble PED. The command below takes an unsorted PED of matched case and control animals and sorts first by number in column 1 (pair identifier) and the by column 6 (control ID preceding the case ID)
+You can upload files to the `/code` or `/data` folders using the buttons at the top of the left-side **Files pane**.
+
+Any plots, figures, and results data should be saved in the `/results` directory. At the end of each run, these files will appear in the right-side **Reproducibility pane**, where you can view and download them. When you publish a capsule, the most recent set of results will be preserved as part of the capsule.
+
+##  PLINK PED File Grooming
+Each [PLINK](https://zzz.bwh.harvard.edu/plink/download.shtml#download) PED file row represents a single animal's six metadata columns, plus their diploid genotype columns, in the order of the SNPs present in the PLINK MAP file.   The .ped file should be modified to include the pair identifier (a number) in the first column, and the rows sorted in descending pair order from 1 to 102 with the unaffected animal (i.e., “control”) listed first in the pair.  The phenotypes (PHENO) are coded in the sixth column, with the control coded with 1 (PHENO = 1) and the case with a 2 (PHENO = 2). 
+
+Use UNIX/Linux **sort** to unscramble the PED file if necessary. The command below takes an unsorted PED file of matched case and control animals and sorts first by number in column 1 (pair identifier) and the by column 6 (control ID preceding the case ID) consistent with the requirements stated in the previous paragraph.
 
 `sort -k1,1n -k6,6n  BCHF102pairsHD770Filtered.ped > BCHF102pairsHD770FilteredSorted.ped`
 
@@ -14,14 +20,85 @@ To make it easier to check that the sorting worked, use Unix/Linux **awk** to ex
 
 The FAM file is included in this repository.
 
-### Mike Heaton What are other PED filtering requirements ?
+For example, the first 5 animal pairs in correct sorted order are
+
+	1    NE01_610_65613    0    0    2    1
+	1    NE01_610_65547    0    0    2    2
+	2    NE01_6DRS_18287    0    0    1    1
+	2    NE01_6DRS_18803    0    0    1    2
+	3    NE01_6DRS_18228    0    0    1    1
+	3    NE01_6DRS_18211    0    0    1    2
+	4    NE01_6DRS_18667    0    0    1    1
+	4    NE01_6DRS_18688    0    0    1    2
+	5    NE01_6DRH_65178    0    0    2    1
+	5    NE01_6DRH_65555    0    0    2    2
+
  
 ## Input Requirements
 * PED file groomed as described above
 * MAP file of genome coordinates for each SNP in PED
 
-## Running McNemar's Analysis: Chromosome 28 example
-McNemars\_Chip\_Analysis.mlx - Matlab Live Script - currently configured to run SNP resident only on chr 28 to demonstrate running the script and output. Can easily change analysis input files within McNemars\_Chip\_Analysis.mlx by providing file names for the PED, MAP and basename for the  plinkPED, plinkMAP, and basename file handles within this script. This script can be run on a local workstation, assuming that the Matlab function files (*.m) in this repository are in the users path at runtime. Please make sure that the PED and MPA files are in the same directory as the McNemars\_Chip\_Analysis.mlx Live Script, if not, please change path to the files for the file handles. Alternatively, this analysis can be run in the [McNemarsSNP Analysis CodeOcean (CO) Compute Capsule](https://codeocean.com/capsule/0870729/tree) using McNemars\_Chip\_Analysis.m **function**, a version of the Live Script modified to run in CO. *(Note this link won't work for you unless you given permission by Greg or this Compute Capsule is made public ... it is currently private until the paper is published)*
+These should be placed in the `/data` folder. Please change the filenames associated with the plinkMAP, plinkPED, and  basename in [McNemars\_Chip\_Analysis.m ](/code/McNemars_Chip_Analysis.m)file accordingly as they are currently set as defined below.
+
+for chromosome 28 only 
+
+	plinkMAP = 'BCHF102pairsHD770FFFSortFiltered_extract_chr28.map';
+	plinkPED = 'BCHF102pairsHD770FFFSortFiltered_extract_chr28.ped';
+	basename = 'BCHF102pairsHD770FFFSortFiltered_extract_chr28';
+	
+for entire dataset
+
+	plinkMAP = 'BCHF102pairsHD770FFFSortFiltered.map';
+	plinkPED = 'BCHF102pairsHD770FFFSortFiltered.ped';
+	basename = 'BCHF102pairsHD770FFFSortFiltered';
+
+
+# CodeOcean Matlab scripts
+Code Ocean does notinteractively run using Matlab .mlx Live Scripts. Therefor, these scripts were converted to .m non-interactive scripts to run on Code Ocean. 
+
+## Running McNemar's Analysis 
+
+
+The compute capsule is run by clicking on the **Reproducible Run** button on the upper right hand side of the Code Ocean window. The action start the **run** script in the code directory in the left side of the window.  The default run script is to run SNP on chromosome 28
+
+### Test on SNPs from chromosome 28 only (default)
+
+Because there is no hash sign '#' starting the lng, the script will run the McNemars\_Chip\_Analysis\_chr28.m script
+
+	
+	# Master script to run analyses on control and genomic SSR 
+	# 
+
+	matlab -nodisplay -nodesktop -r "run McNemars_Chip_Analysis_chr28.m"
+	
+	# matlab -nodisplay -nodesktop -r "run McNemars_Chip_Analysis_GitHub_FullChip.m"
+
+### Run full analysis on all SNPs (edit run script)
+	
+It is easy to change input files used by the analysis by changing the input file names for the PED, MAP and basename for the  plinkPED, plinkMAP, and basename variables within the script. For example, a second Matlab script is available to run the analysis on all the SNP. To run the fill analysis,  edit the run script to run McNemars\_Chip\_Analysis\_GitHub\_FullChip.m to remove the '#' in front of
+
+	# matlab -nodisplay -nodesktop -r "run McNemars_Chip_Analysis_GitHub_FullChip.m"
+	
+and place one in the first column position 
+
+	matlab -nodisplay -nodesktop -r "run McNemars_Chip_Analysis_chr28.m"
+
+resulting in a **run** file that looks like
+
+
+	# Master script to run analyses on control and genomic SSR 
+	# 
+
+	# matlab -nodisplay -nodesktop -r "run McNemars_Chip_Analysis_chr28.m"
+	
+	matlab -nodisplay -nodesktop -r "run McNemars_Chip_Analysis_GitHub_FullChip.m"
+	
+Running the entire dataset usually takes a few hours. The compute intensive step is calling diplotypes for every animal and SNP.
+
+## Outputs
+* CSV file of McNemar's test scores, occupancy of McNeamar's contingency table quandrants,  chi-square, chi-square continuity correction , exact p-values, & mid p-values in the  `/results` directory
+ 
+
 ###  Evaluating McNemar's contingency table
 
 
@@ -47,18 +124,13 @@ McNemars\_Chip\_Analysis.mlx - Matlab Live Script - currently configured to run 
 **Only Qb and Qc are informative for risk or protection**
 
 
-## Outputs
-* CSV file of McNemar's test scores, occupancy of McNeamar's contingency table quandrants,  chi-square, chi-square continuity correction , exact p-values, & mid p-values
-* pdf representation of MatLab Livescript (.mlx.pdf) 
-
-
 ### CSV output file: Explanation of column header abbreviations
 
-HiFreqAllele = high frequency allele
+HiFreqAllele = high frequency biallelic SNP allele in the group of 204 cases and controls (i.e. major allele)
 
-For ExactlyOneAllele case with high frequency allele
+For ExactlyOneAllele case with high frequency (HF) allele
 
-* ExactOneHF_a = exactly one allele (heterozygotes, hets) only) in quadrant Qa  
+* ExactOneHF_a = exactly one allele (heterozygotes, hets only) in quadrant Qa  
 * ExactOneHF_b = exactly one allele (hets only) in quadrant Qb
 * ExactOneHF_c = exactly one allele (hets only) in quadrant Qc
 * ExactOneHF_d = exactly one allele (hets only) in quadrant Qd
@@ -76,8 +148,20 @@ For ExactlyOneAllele case with high frequency allele
 The abbreviations schema is the same for the ExactlyOneOrTwoAllele (hets or homozygotes) and ExactlyTwoAllele (homozygotes) cases using both the high and low frequency alleles.
 
 
-##  ![](https://unlicense.org/pd-icon.png) License
-This code is released into the public domain under the [UnLicence](https://unlicense.org) 
+## Environment and Dependencies
+
+Click **Environment** on the left to find a computational environment to accommodate your software (languages, frameworks) or hardware (GPU) requirements. You can then further customize the environment by installing additional packages. The changes you make will be applied the next time your capsule runs. See our help articles on [the computational environment](https://help.codeocean.com/getting-started/the-computational-environment/configuring-your-computational-environment-an-overview) for more information.
+
+### Environment Caching
+
+The next time you run your capsule after making changes to any part of the environment, a custom environment will be built and cached for future runs.
+
+When you publish a capsule, its computational environment will be preserved with it, thereby ensuring computational reproducibility.
+
+## ![](https://unlicense.org/pd-icon.png) License 
+
+This code is released into the public domain under the [UnLicense](https://unlicense.org) 
+ 
 
 	This is free and unencumbered software released into the public domain.
 	
@@ -103,4 +187,3 @@ This code is released into the public domain under the [UnLicence](https://unlic
 	OTHER DEALINGS IN THE SOFTWARE.
 	
 	For more information, please refer to <http://unlicense.org/>
- 
