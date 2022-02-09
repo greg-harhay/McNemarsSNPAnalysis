@@ -97,7 +97,7 @@ Running the entire dataset usually takes a few hours. The compute intensive step
 
 # Run Matlab Live Scripts on workstation
 
-Run the analogous McNemars\_Chip\_Analysis\_chr28.mlx chromosome 28 only test data set or the full dataset with McNemars\_Chip\_Analysis\_GitHub\_FullChip.mlx. ***The Parallel Computing and Statistics & Machine Learning Toolboxes are required***.  A pdf is provided for each Live Scripts after they were run.
+Run the analogous McNemars\_Chip\_Analysis\_chr28.mlx chromosome 28 only test data set or the full dataset with McNemars\_Chip\_Analysis\_GitHub\_FullChip.mlx. ***The Parallel Computing and Statistics & Machine Learning Toolboxes are required***. Downlaod the 	BCHF102pairsHD770FFFSortFiltered.map & BCHF102pairsHD770FFFSortFiltered.ped full chip data from the Code Ccean data directory as these files are too big to store on GitHub. A pdf is provided for each Live Scripts after they were run. 
 
 # Outputs
 A CSV file of McNemar's test scores, occupancy of McNeamar's contingency table quandrants,  chi-square, chi-square continuity correction , exact p-values, & mid p-values in the  `/results` directory for Code Ocean.  MatLab Live Scripts will write the CSV into the directory the Live Script were run from as well as a binary MAT file that captures all variables generated.
