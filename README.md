@@ -86,7 +86,7 @@ and place one in the first column position
 resulting in a **run** file that looks like
 
 
-	# Master script to run analyses on control and genomic SSR 
+	# Master script to run GWAS using McNemar's test 
 	# 
 
 	# matlab -nodisplay -nodesktop -r "run McNemars_Chip_Analysis_chr28.m"
