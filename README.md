@@ -1,11 +1,7 @@
 # McNemar's SNP Analysis 
 Matlab scripts for performing McNemars Test on SNPs of the Illumina Bovine HD770 Chip. A summary of the McNemar's test can be found [here](https://en.wikipedia.org/wiki/McNemar%27s_test).  These scripts, written in 100% MatLab, are the computational engine that generated the results presented in the publication titled "Association of *ARRDC3* and *NFIA* variants with bovine congestive heart failure in feedlot cattle" with link HERE
 ## Code, Data, Results 
-Your capsule starts with the folders `/code`, `/data`, and `/results`. See our help article on [Paths](https://help.codeocean.com/getting-started/uploading-code-and-data/paths) for more information.
-
-You can upload files to the `/code` or `/data` folders using the buttons at the top of the left-side **Files pane**.
-
-Any plots, figures, and results data should be saved in the `/results` directory. At the end of each run, these files will appear in the right-side **Reproducibility pane**, where you can view and download them. When you publish a capsule, the most recent set of results will be preserved as part of the capsule.
+Our CodeOcean Compute capsule can be found [here](https://codeocean.com/capsule/4541362/tree/v1).
 
 ##  PLINK PED File Grooming
 Each [PLINK](https://zzz.bwh.harvard.edu/plink/download.shtml#download) PED file row represents a single animal's six metadata columns, plus their diploid genotype columns, in the order of the SNPs present in the PLINK MAP file.   The .ped file should be modified to include the pair identifier (a number) in the first column, and the rows sorted in descending pair order from 1 to 102 with the unaffected animal (i.e., “control”) listed first in the pair.  The phenotypes (PHENO) are coded in the sixth column, with the control coded with 1 (PHENO = 1) and the case with a 2 (PHENO = 2). 
